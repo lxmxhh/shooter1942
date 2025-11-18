@@ -11,6 +11,7 @@ class Game:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("1942 Vertical Shooter")
         self.clock = pygame.time.Clock()
+        self.debug = False
 
         self.all_sprites = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()

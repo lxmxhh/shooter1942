@@ -1,7 +1,7 @@
 import sys
 import pygame
 
-from .settings import WIDTH, HEIGHT, BLACK, WHITE, RED, GRAY
+from .settings import WIDTH, HEIGHT, BLACK, WHITE, RED, GRAY, YELLOW
 from .ui import draw_text
 from .factory import Spawner
 from .control import ManualController, AutoPilotController
@@ -35,6 +35,8 @@ class PlayingState(GameState):
                     game.player.controller = AutoPilotController()
                 else:
                     game.player.controller = ManualController()
+            if event.key == pygame.K_d:
+                game.debug = not game.debug
 
     def update(self, game, now):
         game.player.try_shoot(now, game.all_sprites, game.bullets)
@@ -53,6 +55,8 @@ class PlayingState(GameState):
         game.all_sprites.draw(screen)
         draw_text(screen, f"Score: {game.score}", 24, 70, 20, WHITE)
         draw_text(screen, f"Lives: {game.player.lives}", 24, WIDTH - 80, 20, WHITE)
+        if game.debug:
+            draw_text(screen, f"{int(game.clock.get_fps())} FPS", 18, WIDTH // 2, 14, YELLOW)
 
 
 class GameOverState(GameState):
@@ -64,6 +68,8 @@ class GameOverState(GameState):
             if event.key == pygame.K_RETURN:
                 game.reset()
                 game.change_state(PlayingState())
+            if event.key == pygame.K_d:
+                game.debug = not game.debug
 
     def update(self, game, now):
         game.all_sprites.update(game)
@@ -76,3 +82,5 @@ class GameOverState(GameState):
         draw_text(screen, "Press Enter to Restart", 24, WIDTH // 2, HEIGHT // 2 + 30, GRAY)
         draw_text(screen, "Score: {}".format(game.score), 24, 70, 20, WHITE)
         draw_text(screen, "Lives: 0", 24, WIDTH - 80, 20, WHITE)
+        if game.debug:
+            draw_text(screen, f"{int(game.clock.get_fps())} FPS", 18, WIDTH // 2, 14, YELLOW)
