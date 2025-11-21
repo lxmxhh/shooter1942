@@ -57,6 +57,7 @@ class PlayingState(GameState):
         draw_text(screen, f"Lives: {game.player.lives}", 24, WIDTH - 80, 20, WHITE)
         if game.debug:
             draw_text(screen, f"{int(game.clock.get_fps())} FPS", 18, WIDTH // 2, 14, YELLOW)
+            draw_text(screen, f"Bullets: {len(game.bullets)} | Enemies: {len(game.enemies)}", 18, WIDTH // 2, 32, YELLOW)
 
 
 class GameOverState(GameState):
@@ -84,3 +85,4 @@ class GameOverState(GameState):
         draw_text(screen, "Lives: 0", 24, WIDTH - 80, 20, WHITE)
         if game.debug:
             draw_text(screen, f"{int(game.clock.get_fps())} FPS", 18, WIDTH // 2, 14, YELLOW)
+            draw_text(screen, f"Bullets: {len(game.bullets)} | Enemies: {len(game.enemies)}", 18, WIDTH // 2, 32, YELLOW)
